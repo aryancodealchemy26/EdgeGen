@@ -1,21 +1,28 @@
 const { execSync } = require('child_process');
 
 try {
-    console.log("--- Compiling Java ---");
-    execSync('javac Solution.java');
+    // 1. Compile both
+    execSync('javac Solution.java Brute.java');
 
-    console.log("--- Generating Input ---");
-    const input = execSync('node generator.js').toString();
-    console.log(`Testing with input: "${input.trim()}"`);
-
-    console.log("--- Running Solution ---");
-    // Passing the input to the Java process
-    const output = execSync('java Solution', { input: input }).toString();
+    // 2. Get the input from our generator
+    const input = execSync('node generator.js').toString().trim();
     
-    console.log("Result:", output);
-    console.log("✅ Status: Success");
+    // 3. Get results from both programs
+    const actual = execSync('java Solution', { input: input }).toString().trim();
+    const expected = execSync('java Brute', { input: input }).toString().trim();
+
+    console.log(`\nInput:    "${input}"`);
+    
+    // 4. THE COMPARISON
+    if (actual === expected) {
+        console.log(`✅ PASS: Both versions agree.`);
+        console.log(`Result:   "${actual}"`);
+    } else {
+        console.log(`❌ FAIL: Logic Error Detected!`);
+        console.log(`Expected: "${expected}"`);
+        console.log(`Actual:   "${actual}"`);
+    }
 
 } catch (error) {
-    console.error("❌ Status: CRASHED/FAILED");
-    console.error(error.stderr?.toString() || error.message);
+    console.error("❌ CRASH: The program encountered a runtime error.");
 }
