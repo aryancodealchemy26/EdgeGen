@@ -15,5 +15,7 @@ public class Solution {
             arr[n - 1 - i] = temp;
         }
         System.out.println(new String(arr));
+
+        sc.close();
     }
 }
