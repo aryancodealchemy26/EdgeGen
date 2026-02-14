@@ -9,5 +9,8 @@ public class Brute {
         // The guaranteed correct way
         System.out.println(new StringBuilder(input).reverse().toString());
         sc.close();
+    
+    // ????????
     }
 }
+////saved
