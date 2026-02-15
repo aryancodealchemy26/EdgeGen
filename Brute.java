@@ -10,7 +10,7 @@ public class Brute {
         System.out.println(new StringBuilder(input).reverse().toString());
         sc.close();
     
-    // ????????
+    // 
     }
 }
 ////saved
